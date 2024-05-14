@@ -22,7 +22,7 @@ const Blog = (props) => {
           src={close}
           alt="close"
           onClick={props.onClose}
-          style={{ width: "24px", height: "24px" }}
+          style={{ width: "24px", height: "24px", cursor: "pointer"}}
         />
       </div>
       <p

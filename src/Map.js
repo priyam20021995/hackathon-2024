@@ -4,7 +4,9 @@ import Legend from "./components/Legend";
 // import Optionsfield from "./components/Optionsfield";
 import "./Map.css";
 import data from "./data.json";
-import Blog, { BlogDescription } from "./components/Blog";
+import Blog from "./components/Blog";
+import gpLogo from "../src/assets/g-p-logo.svg";
+import Form from "./components/Form";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoicHJpeWFtMjAwMjE5OTUiLCJhIjoiY2x3NHFqeXk4MTRjYTJrbGMzbGpuZzhvYyJ9.coENWdeCBCqRTxmxtCqukw";
@@ -39,13 +41,18 @@ const Map = () => {
   const [blogTitle, setBlogTitle] = useState("");
   const [newLang, setNewLang] = useState(0);
   const [blogDescription, setBlogDescription] = useState("");
+  const [role, setRole] = useState("");
+  const [years, setYears] = useState("");
+  const [budget, setBudget] = useState("");
+  const [tech, setTech] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [10.4515, 51.1657],
-      zoom: 2,
+      zoom: 1.5,
       projection: "globe",
     });
 
@@ -53,9 +60,9 @@ const Map = () => {
       map.setFog({
         color: "rgb(90, 188, 216)", // Lower atmosphere
         "high-color": "rgb(36, 92, 223)", // Upper atmosphere
-        "horizon-blend": 0.02, // Atmosphere thickness (default 0.2 at low zooms)
-        "space-color": "rgb(11, 11, 25)", // Background color
-        "star-intensity": 0.9, // Background star brightness (default 0.35 at low zoooms )
+        "horizon-blend": 0.009, // Atmosphere thickness (default 0.2 at low zooms)
+        "space-color": "#f9f9f9", // Background color
+        "star-intensity": 1, // Background star brightness (default 0.35 at low zoooms )
       });
 
       map.addSource("countries", {
@@ -156,19 +163,21 @@ const Map = () => {
       });
 
       map.on("click", (e) => {
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ["country-fills"],
-        });
-        if (!features.length) return;
-        const { properties } = features[0];
-        // const { property, description } = activeRef.current;
-        // alert(`(${properties.name}) ${properties[property]} ${description}`);
-        setBlogTitle(`${properties.name}`);
-        setBlogDescription(BlogDescription);
-        setShowBlog(true);
+        // const features = map.queryRenderedFeatures(e.point, {
+        //   layers: ["country-fills"],
+        // });
+        // if (!features.length) return;
+        // const { properties } = features[0];
+        // // const { property, description } = activeRef.current;
+        // // alert(`(${properties.name}) ${properties[property]} ${description}`);
+        // setBlogTitle(`${properties.name}`);
+        // setBlogDescription(BlogDescription);
+        // setShowBlog(true);
+        // setUserInteracting(true);
       });
 
       setMap(map);
+      hideTradeMark();
     });
 
     // Clean up on unmount
@@ -189,10 +198,10 @@ const Map = () => {
       }
       const center = map.getCenter();
       center.lng -= distancePerSecond;
-      map.easeTo({ center, duration: 1000, easing: (n) => n });
+      map.easeTo({ center, duration: 800, easing: (n) => n });
       setTimeout(function () {
         setNewLang(center.lng);
-      }, 1000);
+      }, 800);
     }
   };
 
@@ -230,12 +239,116 @@ const Map = () => {
     setBlogTitle("");
     setBlogDescription("");
     setShowBlog(false);
+    setUserInteracting(false);
+  };
+
+  const hideTradeMark = () => {
+    const elements = document.querySelectorAll(
+      ".mapboxgl-ctrl.mapboxgl-ctrl-attrib"
+    );
+    elements.forEach((element) => {
+      element.style.display = "none";
+    });
+
+    const logos = document.querySelectorAll(".mapboxgl-ctrl-bottom-left");
+    logos.forEach((element) => {
+      element.style.display = "none";
+    });
+  };
+
+  const handleSubmit = () => {
+    setSubmitting(true);
+    setTimeout(function () {
+      setSubmitting(false);
+    }, 3000);
   };
 
   return (
     <div>
-      <div ref={mapContainerRef} className="map-container" />
-      <Legend active={active} stops={active.stops} />
+      <div>
+        <div ref={mapContainerRef} className="map-container" />
+      </div>
+      <div>
+        <Legend active={active} stops={active.stops} />
+      </div>
+
+      <div
+        class="absolute top"
+        style={{
+          height: "36px",
+          width: "100%",
+          backgroundColor: "#3333FF",
+          textAlign: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          cursor: "pointer",
+        }}
+      >
+        <span style={{ fontSize: 13, color: "#FFFFFF" }}>
+          The best gets better! Don’t miss the latest updates to our G-P
+          Meridian Core and Prime EOR packages. Learn more
+        </span>
+      </div>
+
+      <div
+        class="absolute top border-black/5"
+        style={{
+          marginTop: "36px",
+          backgroundColor: "#f9f9f9",
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <img
+          src={gpLogo}
+          alt="logo"
+          style={{
+            width: "80px",
+            height: "35px",
+            cursor: "pointer",
+            marginLeft: "12px",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        />
+        <span
+          class="text-grey-5 ml24"
+          style={{ fontSize: 15, fontWeight: 400 }}
+        >
+          Spartans
+        </span>
+        <div
+          style={{
+            display: "flex",
+            flex: 1,
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
+            marginRight: "12px",
+          }}
+        >
+          <span
+            class="text-grey-5 ml24"
+            style={{ fontSize: 13, fontWeight: 400 }}
+          >
+            +1(888)-855-5328
+          </span>
+          <span
+            class="text-grey-5 ml24"
+            style={{ fontSize: 13, fontWeight: 400 }}
+          >
+            Contact Us
+          </span>
+          <span
+            class="text-grey-5 ml24"
+            style={{ fontSize: 13, fontWeight: 400 }}
+          >
+            Sign In
+          </span>
+        </div>
+      </div>
+
       {showBlog && (
         <Blog
           title={blogTitle}
@@ -243,7 +356,18 @@ const Map = () => {
           onClose={onBlogClose}
         />
       )}
-      {/* <Blog/> */}
+      <Form
+        role={role}
+        setRole={(t) => setRole(t)}
+        years={years}
+        setYears={(t) => setYears(t)}
+        budget={budget}
+        setBudget={(t) => setBudget(t)}
+        tech={tech}
+        setTech={(t) => setTech(t)}
+        submitting={submitting}
+        handleSubmit={handleSubmit}
+      />
       {/* <Optionsfield
         options={options}
         property={active.property}
