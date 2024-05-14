@@ -4,6 +4,8 @@ import Legend from "./components/Legend";
 // import Optionsfield from "./components/Optionsfield";
 import "./Map.css";
 import data from "./data.json";
+import selectedCountries from "./selected-countries.json";
+import resultedCountries from "./resulted-countries.json";
 import Blog from "./components/Blog";
 import gpLogo from "../src/assets/g-p-logo.svg";
 import Form from "./components/Form";
@@ -65,85 +67,178 @@ const Map = () => {
         "star-intensity": 1, // Background star brightness (default 0.35 at low zoooms )
       });
 
+      // map.addSource("countries", {
+      //   type: "geojson",
+      //   data,
+      // });
+
+      // add country boundaries
       map.addSource("countries", {
-        type: "geojson",
-        data,
+        type: "vector",
+        url: "mapbox://mapbox.country-boundaries-v1", // Example vector tileset URL
       });
 
-      map.setLayoutProperty("country-label", "text-field", [
-        "format",
-        ["get", "name_en"],
-        { "font-scale": 1.2 },
-        "\n",
-        {},
-        ["get", "name"],
-        {
-          "font-scale": 0.8,
-          "text-font": [
-            "literal",
-            ["DIN Offc Pro Italic", "Arial Unicode MS Regular"],
-          ],
-        },
-      ]);
-
-      map.addLayer(
-        {
-          id: "country-fills",
-          type: "fill",
-          source: "countries",
-        },
-        "country-label"
-      );
-
-      map.setPaintProperty("country-fills", "fill-color", {
-        property: active.property,
-        stops: active.stops,
-      });
-
-      // Add country borders
       map.addLayer({
-        id: "country-borders",
+        id: "country-boundaries",
         type: "line",
         source: "countries",
-        layout: {},
+        "source-layer": "country_boundaries",
         paint: {
           "line-color": "#FFFFFF",
           "line-width": 1,
         },
       });
 
-      // Add country hover layer
-      map.addLayer({
-        id: "country-fills-hover",
-        type: "fill",
-        source: "countries",
-        layout: {},
-        paint: {
-          "fill-color": "#000000",
-          "fill-opacity": 0.2,
+      // map.addSource("selected-countries", {
+      //   type: "geojson",
+      //   data: {
+      //     type: "FeatureCollection",
+      //     features: selectedCountries,
+      //   },
+      // });
+
+      // map.addLayer({
+      //   id: "selected-countries-fill",
+      //   type: "fill",
+      //   source: "selected-countries",
+      //   paint: {
+      //     "fill-color": "#0000FF",
+      //     "fill-opacity": 1,
+      //   },
+      // });
+
+      map.addSource("resulted-countries", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: resultedCountries,
         },
-        filter: ["==", "name", ""],
       });
+
+      const paints = {
+        "fill-color": [
+          "match",
+          ["get", "name"],
+          "Iran",
+          "#32CD32",
+          "Iraq",
+          "#0000FF",
+          "#98FB98",
+        ],
+        "fill-opacity": 1,
+      };
+
+      map.addLayer({
+        id: "selected-countries-fill",
+        type: "fill",
+        source: "resulted-countries",
+        paint: paints,
+      });
+
+      // fill color to selected countries
+      // map.addLayer({
+      //   id: "countries-layer",
+      //   type: "fill",
+      //   source: {
+      //     type: "vector",
+      //     url: "mapbox://mapbox.country-boundaries-v1",
+      //   },
+      //   "source-layer": "country_boundaries",
+      //   paint: {
+      //     "fill-color": [
+      //       "match",
+      //       ["get", "iso_3166_1_alpha_3"],
+      //       "USA",
+      //       "#32CD32",
+      //       "GBR",
+      //       "#f9f9f9",
+      //       "FRA",
+      //       "#0000FF",
+      //       /* Add more country ISO codes and colors here */
+      //       /* Default color if no match */
+      //       "#98FB98",
+      //     ],
+      //   },
+      // });
+
+      // map.addSource("countries", {
+      //   type: "geojson",
+      //   data,
+      // });
+
+      // map.setLayoutProperty("country-label", "text-field", [
+      //   "format",
+      //   ["get", "name_en"],
+      //   { "font-scale": 1.2 },
+      //   "\n",
+      //   {},
+      //   ["get", "name"],
+      //   {
+      //     "font-scale": 0.8,
+      //     "text-font": [
+      //       "literal",
+      //       ["DIN Offc Pro Italic", "Arial Unicode MS Regular"],
+      //     ],
+      //   },
+      // ]);
+
+      // map.addLayer(
+      //   {
+      //     id: "country-fills",
+      //     type: "fill",
+      //     source: "countries",
+      //   },
+      //   "country-label"
+      // );
+
+      // map.setPaintProperty("country-fills", "fill-color", {
+      //   property: active.property,
+      //   stops: active.stops,
+      // });
+
+      // Add country borders
+      // map.addLayer({
+      //   id: "country-borders",
+      //   type: "line",
+      //   source: "countries",
+      //   layout: {},
+      //   paint: {
+      //     "line-color": "#FFFFFF",
+      //     "line-width": 1,
+      //   },
+      // });
+
+      // Add country hover layer
+      // map.addLayer({
+      //   id: "country-fills-hover",
+      //   type: "fill",
+      //   source: "countries",
+      //   layout: {},
+      //   paint: {
+      //     "fill-color": "#000000",
+      //     "fill-opacity": 0.2,
+      //   },
+      //   filter: ["==", "name", ""],
+      // });
 
       // Add country hover effect
-      map.on("mousemove", (e) => {
-        console.log("mousemove");
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ["country-fills"],
-        });
-
-        if (features.length) {
-          map.getCanvas().style.cursor = "pointer";
-          map.setFilter("country-fills-hover", [
-            "==",
-            "name",
-            features[0].properties.name,
-          ]);
-        } else {
-          map.setFilter("country-fills-hover", ["==", "name", ""]);
-          map.getCanvas().style.cursor = "";
-        }
-      });
+      // map.on("mousemove", (e) => {
+      //   console.log("mousemove");
+      //   const features = map.queryRenderedFeatures(e.point, {
+      //     layers: ["country-fills"],
+      //   });
+      //   if (features.length) {
+      //     map.getCanvas().style.cursor = "pointer";
+      //     map.setFilter("country-fills-hover", [
+      //       "==",
+      //       "name",
+      //       features[0].properties.name,
+      //     ]);
+      //   } else {
+      //     map.setFilter("country-fills-hover", ["==", "name", ""]);
+      //     map.getCanvas().style.cursor = "";
+      //   }
+      // });
 
       map.on("mousedown", () => {
         console.log("mousedown");
@@ -156,20 +251,21 @@ const Map = () => {
       });
 
       // Add country un-hover effect
-      map.on("mouseout", () => {
-        console.log("mouseout");
-        map.getCanvas().style.cursor = "auto";
-        map.setFilter("country-fills-hover", ["==", "name", ""]);
-      });
+      // map.on("mouseout", () => {
+      //   console.log("mouseout");
+      //   map.getCanvas().style.cursor = "auto";
+      //   map.setFilter("country-fills-hover", ["==", "name", ""]);
+      // });
 
       map.on("click", (e) => {
-        // const features = map.queryRenderedFeatures(e.point, {
-        //   layers: ["country-fills"],
-        // });
-        // if (!features.length) return;
-        // const { properties } = features[0];
-        // // const { property, description } = activeRef.current;
-        // // alert(`(${properties.name}) ${properties[property]} ${description}`);
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ["selected-countries-fill"],
+        });
+        if (!features.length) return;
+        const { properties } = features[0];
+        console.log("property click: ", properties);
+        // const { property, description } = activeRef.current;
+        // alert(`(${properties.name}) ${properties[property]} ${description}`);
         // setBlogTitle(`${properties.name}`);
         // setBlogDescription(BlogDescription);
         // setShowBlog(true);

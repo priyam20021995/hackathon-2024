@@ -15,13 +15,13 @@ const Legend = (props) => {
           />
           <span>{"Operational"}</span>
         </div>
-        <div className="txt-s">
+        {/* <div className="txt-s">
           <span
             className="mr6 round-full w12 h12 inline-block align-middle"
             style={{ backgroundColor: "#98FB98" }}
           />
           <span>{"Non Operational"}</span>
-        </div>
+        </div> */}
       </div>
     </>
   );
