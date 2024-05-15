@@ -1,0 +1,12 @@
+{
+  "fill-color": [
+    "match",
+    ["get", "name"],
+    "Iran",
+    "#32CD32",
+    "Iraq",
+    "#0000FF",
+    "#98FB98"
+  ],
+  "fill-opacity": 1
+}
