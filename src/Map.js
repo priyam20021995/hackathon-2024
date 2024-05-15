@@ -192,13 +192,49 @@ const Map = () => {
   const makeBlogCall = (isoCode, name) => {
     console.log("makeBlogCall: ", isoCode, requestId);
     setBlogFetching(true);
-    setTimeout(() => {
-      setBlogData({
-        country: name,
-        details: blogDetails,
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers":
+          "X-Forwarded-For, Content-Type, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, gpwstoken",
+      },
+      body: JSON.stringify({
+        country: isoCode,
+        query: requestId,
+      }),
+    };
+
+    fetch(
+      "https://afosu85zl4.execute-api.us-west-2.amazonaws.com/getBlogData",
+      requestOptions
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("data: ", data);
+        setBlogData({
+          country: name,
+          details: data,
+        });
+        setBlogFetching(false);
+      })
+      .catch((error) => {
+        setBlogFetching(false);
+        console.log("error: ", error);
       });
-      setBlogFetching(false);
-    }, 3000);
+
+    // setTimeout(() => {
+    //   setBlogData({
+    //     country: name,
+    //     details: blogDetails,
+    //   });
+    //   setBlogFetching(false);
+    // }, 3000);
   };
 
   const spinGlobe = () => {

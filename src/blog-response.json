@@ -4,33 +4,33 @@
     "roles": [
       {
         "Title": "Software Engineer",
-        "Number of Employees": 500000,
-        "Salary Range": {
+        "NumberofEmployees": 500000,
+        "SalaryRange": {
           "Average": "$80,000 - $120,000 per year",
           "Minimum": "$50,000 - $70,000 per year",
           "Maximum": "$150,000 - $200,000 per year"
         },
-        "Skillset Insights": "Proficiency in programming languages such as Java, Python, C++, and experience with software development lifecycle."
+        "SkillsetInsights": "Proficiency in programming languages such as Java, Python, C++, and experience with software development lifecycle."
       },
       {
         "Title": "Data Scientist",
-        "Number of Employees": 150000,
-        "Salary Range": {
+        "NumberofEmployees": 150000,
+        "SalaryRange": {
           "Average": "$90,000 - $140,000 per year",
           "Minimum": "$60,000 - $80,000 per year",
           "Maximum": "$160,000 - $250,000 per year"
         },
-        "Skillset Insights": "Expertise in data analytics, machine learning, statistical modeling, and working with big data platforms."
+        "SkillsetInsights": "Expertise in data analytics, machine learning, statistical modeling, and working with big data platforms."
       },
       {
         "Title": "Cybersecurity Analyst",
-        "Number of Employees": 100000,
-        "Salary Range": {
+        "NumberofEmployees": 100000,
+        "SalaryRange": {
           "Average": "$85,000 - $130,000 per year",
           "Minimum": "$55,000 - $75,000 per year",
           "Maximum": "$140,000 - $180,000 per year"
         },
-        "Skillset Insights": "Specialization in network security, threat detection, ethical hacking, and familiarity with cybersecurity tools."
+        "SkillsetInsights": "Specialization in network security, threat detection, ethical hacking, and familiarity with cybersecurity tools."
       }
     ],
     "employmentTerms": {
@@ -65,11 +65,11 @@
       "competitors": "5"
     },
     "howGpCanBeHelpful": {
-      "Global Expansion": "Support for global expansion strategies, including legal compliance, HR, and payroll services.",
-      "Compliance Management": "Guidance on tax compliance, employment laws, and regulatory requirements.",
-      "Talent Acquisition": "Assistance in sourcing and hiring top talent for specialized roles.",
-      "Market Research": "Access to market insights and analysis to inform strategic decisions.",
-      "Operational Support": "Comprehensive support for operational setup, including entity establishment."
+      "GlobalExpansion": "Support for global expansion strategies, including legal compliance, HR, and payroll services.",
+      "ComplianceManagement": "Guidance on tax compliance, employment laws, and regulatory requirements.",
+      "TalentAcquisition": "Assistance in sourcing and hiring top talent for specialized roles.",
+      "MarketResearch": "Access to market insights and analysis to inform strategic decisions.",
+      "OperationalSupport": "Comprehensive support for operational setup, including entity establishment."
     }
   }
 }

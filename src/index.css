@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.carouselCard {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}

@@ -160,6 +160,7 @@ const Blog = (props) => {
             color: "#00000090",
             marginTop: "12px",
             marginBottom: "12px",
+            fontWeight: 500,
           }}
         >
           {props.responseMessage}
@@ -216,14 +217,256 @@ const Blog = (props) => {
                 color: "#000000",
                 marginTop: "12px",
                 marginBottom: "12px",
+                fontWeight: 500,
               }}
             >
               {props.blogData.details.blogDetails.Intro}
             </p>
-            <h2 className="txt-bold txt-s block">{"Roles of Interest"}</h2>
+            <h2 className="txt-bold txt-m block">{"Roles of Interest"}</h2>
             <Carousel items={props.blogData.details.blogDetails.roles} />
 
-            <h2 className="txt-bold txt-s block">{"Tax System"}</h2>
+            <h2 className="txt-bold txt-m block">{"Employment Terms"}</h2>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                }}
+              >
+                Probation Period
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.employmentTerms
+                    .probationPeriod
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                }}
+              >
+                Working Hours
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.employmentTerms
+                    .workingHours
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                }}
+              >
+                Contracts Types
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {props.blogData.details.blogDetails.employmentTerms.typesOfContracts.join(
+                  ", "
+                )}
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                }}
+              >
+                Leave Types
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {props.blogData.details.blogDetails.employmentTerms.typesOfLeaves.join(
+                  ", "
+                )}
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+                marginBottom: "12px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                }}
+              >
+                Termination
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {`During Probation: ${props.blogData.details.blogDetails.employmentTerms.termination.duringProbation}`}
+              </span>
+
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {`After Probation: ${props.blogData.details.blogDetails.employmentTerms.termination.afterProbation}`}
+              </span>
+            </div>
+
+            <h2 className="txt-bold txt-m block">{"Tax System"}</h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "12px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
+                  marginRight: "8px",
+                }}
+              >
+                Corporate Income Tax
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {props.blogData.details.blogDetails.taxes.CorporateIncomeTax}
+              </span>
+            </div>
             <div
               style={{
                 display: "flex",
@@ -234,32 +477,186 @@ const Blog = (props) => {
               <span
                 style={{
                   fontSize: "12px",
-                  color: "#00000070",
-                  fontWeight: 600,
+                  color: "#000000",
+                  fontWeight: 300,
                   marginRight: "8px",
                 }}
               >
-                Corporate IncomeTax
+                Value Added Tax
               </span>
               <span
                 style={{
-                  fontSize: "12px",
+                  fontSize: "11px",
                   color: "#00000070",
                   fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {props.blogData.details.blogDetails.taxes.ValueAddedTax}
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
                   marginRight: "8px",
                 }}
               >
-                {props.blogData.details.blogDetails.taxes.CorporateIncomeTax}
+                Social Insurance
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.taxes
+                    .SocialInsuranceContributions
+                }
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
+                  marginRight: "8px",
+                }}
+              >
+                Individual Income Tax
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {props.blogData.details.blogDetails.taxes.IndividualIncomeTax}
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
+                  marginRight: "8px",
+                }}
+              >
+                Housing Fund
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.taxes
+                    .HousingFundContribution
+                }
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
+                  marginRight: "8px",
+                }}
+              >
+                Business Tax
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {props.blogData.details.blogDetails.taxes.BusinessTax}
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "12px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#000000",
+                  fontWeight: 300,
+                  marginRight: "8px",
+                }}
+              >
+                Property Tax
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  width: "60%",
+                  textAlign: "end",
+                }}
+              >
+                {props.blogData.details.blogDetails.taxes.PropertyTax}
               </span>
             </div>
 
-            <h2 className="txt-bold txt-s block">{"Risk Factors"}</h2>
+            <h2 className="txt-bold txt-m block">{"Risk Factors"}</h2>
 
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "end",
+                marginTop: "8px",
               }}
             >
               <span
@@ -388,6 +785,7 @@ const Blog = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "end",
+                marginBottom: "12px",
               }}
             >
               <span
@@ -407,6 +805,212 @@ const Blog = (props) => {
                 readonly={true}
                 size={15}
               />
+            </div>
+
+            <h2 className="txt-bold txt-m block">{"How GP Can Help You"}</h2>
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                  marginTop: "2px",
+                }}
+              >
+                Global Expansion
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.howGpCanBeHelpful
+                    .GlobalExpansion
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                  marginTop: "2px",
+                }}
+              >
+                Compliance Management
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.howGpCanBeHelpful
+                    .ComplianceManagement
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                  marginTop: "2px",
+                }}
+              >
+                Talent Acquisition
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.howGpCanBeHelpful
+                    .TalentAcquisition
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                  marginTop: "2px",
+                }}
+              >
+                Market Research
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.howGpCanBeHelpful
+                    .MarketResearch
+                }
+              </span>
+            </div>
+
+            <div
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                backgroundColor: "#f9f9f9",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                paddingTop: "4px",
+                paddingBottom: "4px",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "8px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000095",
+                  fontWeight: 600,
+                  marginTop: "2px",
+                }}
+              >
+                Operational Support
+              </span>
+              <span
+                style={{
+                  fontSize: "13px",
+                  color: "#00000070",
+                  fontWeight: 500,
+                  lineHeight: "14px",
+                  marginBottom: "6px",
+                  marginTop: "2px",
+                }}
+              >
+                {
+                  props.blogData.details.blogDetails.howGpCanBeHelpful
+                    .OperationalSupport
+                }
+              </span>
             </div>
 
             <div
