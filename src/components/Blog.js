@@ -1081,35 +1081,68 @@ const Blog = (props) => {
                             : "flex-start",
                         }}
                       >
-                        <div
-                          style={{
-                            maxWidth: "200px",
-                            height: "auto",
-                            borderTopLeftRadius: "8px",
-                            borderTopRightRadius: "8px",
-                            borderBottomLeftRadius: chatItem.isAuthor
-                              ? "8px"
-                              : "0px",
-                            borderBottomRightRadius: chatItem.isAuthor
-                              ? "0px"
-                              : "8px",
-                            border: "1px solid #0000FF",
-                            backgroundColor: "#FFFFFF",
-                            padding: "8px",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <span
+                        <div>
+                          <div
                             style={{
-                              fontSize: "13px",
-                              fontWeight: 500,
-                              color: "#000000",
-                              lineHeight: "15px",
+                              maxWidth: "200px",
+                              height: "auto",
+                              borderTopLeftRadius: "8px",
+                              borderTopRightRadius: "8px",
+                              borderBottomLeftRadius: chatItem.isAuthor
+                                ? "8px"
+                                : "0px",
+                              borderBottomRightRadius: chatItem.isAuthor
+                                ? "0px"
+                                : "8px",
+                              border: "1px solid #0000FF",
+                              backgroundColor: "#FFFFFF",
+                              padding: "8px",
+                              display: "flex",
+                              alignItems: "center",
                             }}
                           >
-                            {chatItem.message}
-                          </span>
+                            <span
+                              style={{
+                                fontSize: "13px",
+                                fontWeight: 500,
+                                color: "#000000",
+                                lineHeight: "15px",
+                              }}
+                            >
+                              {chatItem.message}
+                            </span>
+                          </div>
+                          {!chatItem.isAuthor && (
+                            <div
+                              style={{
+                                width: "200px",
+                                height: "32px",
+                                border: "1px solid #0000FF",
+                                backgroundColor: "#FFFFFF",
+                                borderRadius: "16px",
+                                marginTop: "12px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                window.open(
+                                  "https://www.globalization-partners.com/contact-us/"
+                                );
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: "13px",
+                                  color: "#0000FF",
+                                  fontWeight: 600,
+                                }}
+                              >
+                                Got It, Onboard Me
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
