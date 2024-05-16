@@ -46,9 +46,9 @@ const Header = (props) => {
         />
         <span
           class="text-grey-5 ml24"
-          style={{ fontSize: 15, fontWeight: 400 }}
+          style={{ fontSize: 14, fontWeight: 500 }}
         >
-          Spartans
+          Sherlock
         </span>
         <div
           style={{

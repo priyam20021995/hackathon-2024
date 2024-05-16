@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Carousel = ({ items }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === items.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? items.length - 1 : prevIndex - 1
-    );
-  };
-
+  
   const Cards = () => {
     const settings = {
       dots: true,
@@ -103,41 +90,7 @@ const Carousel = ({ items }) => {
         marginBottom: "32px",
       }}
     >
-      {currentIndex !== 0 && (
-        <div
-          onClick={prevSlide}
-          style={{
-            width: "24px",
-            height: "24px",
-            borderRadius: "12px",
-            backgroundColor: "#00000050",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <p>{"<"}</p>
-        </div>
-      )}
       {Cards()}
-      {currentIndex !== items.length - 1 && (
-        <div
-          onClick={nextSlide}
-          style={{
-            width: "24px",
-            height: "24px",
-            borderRadius: "12px",
-            backgroundColor: "#00000050",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-        >
-          <p>{">"}</p>
-        </div>
-      )}
     </div>
   );
 };

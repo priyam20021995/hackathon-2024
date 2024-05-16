@@ -8,7 +8,6 @@ import gpLogo from "../src/assets/g-p-logo.svg";
 import Form from "./components/Form";
 import Header from "./components/Header";
 import { extractHexColors } from "./Utils";
-import blogDetails from "./blog-response.json";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoicHJpeWFtMjAwMjE5OTUiLCJhIjoiY2x3NHFqeXk4MTRjYTJrbGMzbGpuZzhvYyJ9.coENWdeCBCqRTxmxtCqukw";
@@ -33,6 +32,10 @@ const Map = () => {
   const [spinEnabled, setSpinEnabled] = useState(true);
   const [blogFetching, setBlogFetching] = useState(false);
   const [blogData, setBlogData] = useState(null);
+  const [typedMessage, setTypedMessage] = useState("");
+  const [chatSubmitting, setChatSubmitting] = useState(false);
+  const [chatOn, setChatOn] = useState(false);
+  const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
     if (uiState === 0) {
@@ -173,6 +176,9 @@ const Map = () => {
           console.log("property click: ", properties);
           setUserInteracting(true);
           setBlogData(null);
+          setChatSubmitting(false);
+          setTypedMessage("");
+          setChatOn(false);
           makeBlogCall(properties.iso_a3, properties.name);
         });
 
@@ -222,19 +228,12 @@ const Map = () => {
           details: data,
         });
         setBlogFetching(false);
+        setChatList([]);
       })
       .catch((error) => {
         setBlogFetching(false);
         console.log("error: ", error);
       });
-
-    // setTimeout(() => {
-    //   setBlogData({
-    //     country: name,
-    //     details: blogDetails,
-    //   });
-    //   setBlogFetching(false);
-    // }, 3000);
   };
 
   const spinGlobe = () => {
@@ -269,6 +268,10 @@ const Map = () => {
     setUserInteracting(false);
     setSpinEnabled(true);
     setBlogData(null);
+    setChatSubmitting(false);
+    setTypedMessage("");
+    setChatOn(false);
+    setChatList([]);
   };
 
   const hideTradeMark = () => {
@@ -349,6 +352,67 @@ const Map = () => {
       });
   };
 
+  const submitChatQuery = () => {
+    setChatSubmitting(true);
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "*",
+          "Access-Control-Allow-Headers":
+            "X-Forwarded-For, Content-Type, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, gpwstoken",
+        },
+        body: JSON.stringify({
+          value: typedMessage
+        }),
+      };
+
+     fetch(
+       "https://afosu85zl4.execute-api.us-west-2.amazonaws.com/chatNow",
+       requestOptions
+     )
+       .then((response) => {
+         return response.json();
+       })
+       .then((data) => {
+         console.log("data: ", data);
+           const updatedList = [
+             ...chatList,
+             {
+               isAuthor: true,
+               message: typedMessage,
+             },
+             {
+               isAuthor: false,
+               message: data.req
+             },
+           ];
+           setChatList(updatedList);
+           setTypedMessage("");
+           setChatSubmitting(false);
+       })
+       .catch((error) => {
+         setChatSubmitting(false);
+         console.log("error: ", error);
+       });
+
+
+    // setTimeout(() => {
+    //   const updatedList = [
+    //     ...chatList,
+    //     {
+    //       isAuthor: true,
+    //       message: typedMessage,
+    //     },
+    //   ];
+    //   setChatList(updatedList);
+    //   setTypedMessage("");
+    //   setChatSubmitting(false);
+    // }, 2000);
+  };
+
   return (
     <div>
       <div>
@@ -385,6 +449,13 @@ const Map = () => {
           onClose={onBlogClose}
           blogFetching={blogFetching}
           blogData={blogData}
+          typedMessage={typedMessage}
+          setTypedMessage={(t) => setTypedMessage(t)}
+          chatSubmitting={chatSubmitting}
+          submitChatQuery={submitChatQuery}
+          chatOn={chatOn}
+          setChatOn={() => setChatOn(true)}
+          chatList={chatList}
         />
       )}
     </div>

@@ -1,0 +1,18 @@
+[
+  {
+    "message": "I want to know more on that perspective",
+    "isAuthor": true
+  },
+  {
+    "message": "Sure let me get back to you",
+    "isAuthor": false
+  },
+  {
+    "message": "How much time is needed?",
+    "isAuthor": true
+  },
+  {
+    "message": "Thanks for your time",
+    "isAuthor": false
+  }
+]

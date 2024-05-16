@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import close from "../assets/cancel.png";
 import wallpaper from "../assets/wallpaper.jpg";
 import { RotatingLines } from "react-loader-spinner";
 import Carousel from "./RoleCarousel";
 import { Rating } from "react-simple-star-rating";
+import sendIcon from "../assets/send-icon.png";
 
 const Blog = (props) => {
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (props.chatOn) {
+      scrollToBottom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.chatOn, props.chatList]);
+
   return (
     <div
       className="bg-white absolute top right pt12 px24 shadow-darken10 round"
@@ -655,7 +669,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
                 marginTop: "8px",
               }}
             >
@@ -664,7 +678,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Economic Forces
@@ -681,7 +695,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
               }}
             >
               <span
@@ -689,7 +703,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Legal Challenges
@@ -706,7 +720,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
               }}
             >
               <span
@@ -714,7 +728,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Political Factors
@@ -732,7 +746,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
               }}
             >
               <span
@@ -740,7 +754,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Natural Disasters
@@ -758,7 +772,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
               }}
             >
               <span
@@ -766,7 +780,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Cultural Differences
@@ -784,7 +798,7 @@ const Blog = (props) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "end",
+                justifyContent: "start",
                 marginBottom: "12px",
               }}
             >
@@ -793,7 +807,7 @@ const Blog = (props) => {
                   fontSize: "12px",
                   color: "#00000070",
                   fontWeight: 500,
-                  marginRight: "8px",
+                  marginRight: "15px",
                 }}
               >
                 Competitors
@@ -1013,34 +1027,153 @@ const Blog = (props) => {
               </span>
             </div>
 
-            <div
-              style={{
-                backgroundColor: "#0000FF",
-                borderRadius: "24px",
-                height: "36px",
-                cursor: "pointer",
-                marginTop: "24px",
-                marginBottom: "24px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onClick={() => {
-                window.open(
-                  "https://www.globalization-partners.com/contact-us/"
-                );
-              }}
-            >
-              <span
+            {!props.chatOn && (
+              <div
                 style={{
-                  fontSize: "15px",
-                  color: "#FFFFFF",
-                  fontWeight: 500,
+                  backgroundColor: "#0000FF",
+                  borderRadius: "24px",
+                  height: "36px",
+                  cursor: "pointer",
+                  marginTop: "24px",
+                  marginBottom: "24px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
+                onClick={props.setChatOn}
               >
-                Contact Us
-              </span>
-            </div>
+                <span
+                  style={{
+                    fontSize: "15px",
+                    color: "#FFFFFF",
+                    fontWeight: 500,
+                  }}
+                >
+                  Have Query? Chat with GP-Sherlock
+                </span>
+              </div>
+            )}
+
+            {props.chatOn && (
+              <div style={{ marginTop: "12px", marginBottom: "18px" }}>
+                <h2 className="txt-bold txt-m block">
+                  {"Chat with GP-Sherlock"}
+                </h2>
+
+                {props.chatList.length > 0 && (
+                  <div
+                    style={{
+                      width: "100%",
+                      marginTop: "18px",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    {props.chatList.map((chatItem, chatIndex) => (
+                      <div
+                        key={chatIndex}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          marginTop: "18px",
+                          marginBottom: "18px",
+                          justifyContent: chatItem.isAuthor
+                            ? "flex-end"
+                            : "flex-start",
+                        }}
+                      >
+                        <div
+                          style={{
+                            maxWidth: "200px",
+                            height: "auto",
+                            borderTopLeftRadius: "8px",
+                            borderTopRightRadius: "8px",
+                            borderBottomLeftRadius: chatItem.isAuthor
+                              ? "8px"
+                              : "0px",
+                            borderBottomRightRadius: chatItem.isAuthor
+                              ? "0px"
+                              : "8px",
+                            border: "1px solid #0000FF",
+                            backgroundColor: "#FFFFFF",
+                            padding: "8px",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontSize: "13px",
+                              fontWeight: 500,
+                              color: "#000000",
+                              lineHeight: "15px",
+                            }}
+                          >
+                            {chatItem.message}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div
+                  style={{
+                    marginTop: "18px",
+                    width: "100%",
+                    border: "1px solid #E9EAEC",
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: "20px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingRight: "12px",
+                  }}
+                >
+                  <input
+                    id="message_id"
+                    name="message"
+                    type="text"
+                    inputmode="text"
+                    value={props.typedMessage}
+                    onInput={(e) => props.setTypedMessage(e.target.value)}
+                    placeholder={"Type your query"}
+                    style={{
+                      width: "320px",
+                      height: "40px",
+                      paddingLeft: "12px",
+                      paddingTop: "8px",
+                      paddingBottom: "8px",
+                      fontSize: "15px",
+                      border: "1px solid #00000000",
+                      borderRadius: "20px",
+                      backgroundColor: "#FFFFFF",
+                    }}
+                  />
+
+                  {props.chatSubmitting ? (
+                    <RotatingLines
+                      strokeColor="#0000FF"
+                      strokeWidth="5"
+                      animationDuration="0.75"
+                      width="24"
+                      visible={true}
+                    />
+                  ) : (
+                    <img
+                      src={sendIcon}
+                      alt="send"
+                      onClick={props.submitChatQuery}
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  )}
+                </div>
+                <div ref={messagesEndRef} />
+              </div>
+            )}
           </div>
         )}
       </div>
